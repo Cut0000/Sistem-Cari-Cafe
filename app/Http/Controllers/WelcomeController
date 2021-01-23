@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class KafeController extends Controller
+{
+    public function index()
+    {
+    	$cafes = DB::table('cafes')->get();
+
+    	return view('welcome' ,['cafes' => $cafes]); 
+    }
+
+    public function cari(Request $request)
+    {
+       $cari = $request->cari;
+       $cafe = DB::table('cafes')
+       ->where('nama','like','%'.$cari.'%')
+       ->get();
+
+        return view('welcome',['cafes' => $cafe]);
+
+
+    }
